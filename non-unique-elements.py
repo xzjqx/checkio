@@ -1,33 +1,34 @@
-#Your optional code here
-#You can import some modules or create additional functions
+import re
 
+def checkio(text):
+    text = text.lower()
+    num = {}
+    #print text
+    for x in text:
+        num[x] = 0
+    for x in text:
+        if re.match(r'[a-z]', x):
+            num[x] = num[x] + 1
+    ma = 0
+    pos = []
+    for k, v in num.items():
+        if ma < v:
+            ma = v
+            pos = []
+            pos.append(k)
+        elif ma == v:
+            pos.append(k)
+    pos.sort()
+    return pos[0]
 
-def checkio(data):
-    #Your code here
-    #It's main function. Don't remove this function
-    #It's used for auto-testing and must return a result for check.
-    dic = {}
-    for x in data:
-        dic[x] = 0
-    for x in data:
-        dic[x] = dic[x] + 1
-    #print (dic)
-    for k, v in dic.items():
-        if v == 1:
-            data.remove(k)
-    #replace this for solution
-    return data
-
-#Some hints
-#You can use list.count(element) method for counting.
-#Create new list with non-unique elements
-#Loop over original list
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     #These "asserts" using only for self-checking and not necessary for auto-testing
-    assert isinstance(checkio([1]), list), "The result must be a list"
-    assert checkio([1, 2, 3, 1, 3]) == [1, 3, 1, 3], "1st example"
-    assert checkio([1, 2, 3, 4, 5]) == [], "2nd example"
-    assert checkio([5, 5, 5, 5, 5]) == [5, 5, 5, 5, 5], "3rd example"
-    assert checkio([10, 9, 10, 10, 9, 8]) == [10, 9, 10, 10, 9], "4th example"
+    assert checkio(u"Hello World!") == "l", "Hello test"
+    assert checkio(u"How do you do?") == "o", "O is most wanted"
+    assert checkio(u"One") == "e", "All letter only once."
+    assert checkio(u"Oops!") == "o", "Don't forget about lower case."
+    assert checkio(u"AAaooo!!!!") == "a", "Only letters."
+    assert checkio(u"abe") == "a", "The First."
+    print("Start the long test")
+    assert checkio(u"a" * 9000 + u"b" * 1000) == "a", "Long."
+    print("The local tests are done.")
